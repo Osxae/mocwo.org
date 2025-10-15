@@ -1,0 +1,175 @@
+import HeroCarousel from "@/components/ui/hero-carousel";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "react-router-dom";
+import hero1 from "@/assets/hero1.jpeg";
+import hero2 from "@/assets/hero2.jpeg";
+import hero3 from "@/assets/hero3.jpeg";
+import hero6 from "@/assets/hero6.jpg";
+import vid from "@/assets/vid.mp4";
+import { Heart, BookOpen, Users, Globe, Mail, Phone, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
+import PartnershipLevelList from "@/components/PartnershipLevelList";
+
+const Home = () => {
+  const carouselSlides = [
+    { id: 1, title: "INTERNATIONAL VISITORS", subtitle: "Welcome to Fathers Heart Chapel", description: "We are ready to receive you from wherever you are visiting us from. Experience God's love in our vibrant community.", image: hero1, ctaText: "Join Our Service", ctaLink: "/services", gradient: "from-red-950 via-rose-900 to-purple-900" },
+    { id: 2, title: "EXPERIENCE GOD'S PRESENCE", subtitle: "Worship & Community", description: "Join us for powerful worship experiences and life-changing messages that will transform your spiritual journey.", image: hero2, ctaText: "Watch Live", ctaLink: "/live" },
+    { id: 3, title: "KINGDOM PARTNERSHIP", subtitle: "Building Together", description: "Partner with us in advancing God's kingdom through missions, outreach, and community transformation.", image: hero3, ctaText: "Partner With Us", ctaLink: "/partnership" },
+    { id: 4, title: "YEAR OF HIS GRACE", subtitle: "Team Of The Year", description: "Praising God for blessedness and following after his promises, trusting his amazing grace.", image: hero6, ctaText: "Join The Family", ctaLink: "/about" },
+    { id: 5, title: "THE CHURCH OF GOD", subtitle: "Our Church nutures", description: "Building Kingdom minded men to look like Christ.", image: vid, ctaText: "Mentorship", ctaLink: "/about" }
+  ];
+
+  const quickActions = [
+    { title: "OFFERING", description: "Support our ministry", icon: Heart, gradient: "from-primary to-primary-glow", link: "/give/offering" },
+    { title: "SEED", description: "Sow into your future", icon: Globe, gradient: "from-secondary to-yellow-400", link: "/give/seed" },
+    { title: "TITHE", description: "Honor God with your first fruits", icon: BookOpen, gradient: "from-accent to-cyan-400", link: "/give/tithe" },
+    { title: "PARTNER NOW", description: "Join our mission", icon: Users, gradient: "from-purple-500 to-pink-500", link: "/partnership" }
+  ];
+
+  const features = [
+    { title: "Live Streaming", description: "Join our services from anywhere in the world", icon: "📺" },
+    { title: "Prayer Requests", description: "Submit your prayer needs and receive support", icon: "🙏" },
+    { title: "Community Outreach", description: "Making a difference in our local and global communities", icon: "🌍" },
+    { title: "Biblical Resources", description: "Access sermons, books, and study materials", icon: "📖" }
+  ];
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      {/* Hero Carousel */}
+      <HeroCarousel slides={carouselSlides} />
+
+      {/* Quick Actions Section */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {quickActions.map((action, index) => {
+              const Icon = action.icon;
+              return (
+                <Link key={index} to={action.link} className="group">
+                  <Card className="h-full border-0 shadow-card hover:shadow-divine transition-all duration-300 group-hover:scale-105">
+                    <CardContent className="p-6 text-center">
+                      <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${action.gradient} flex items-center justify-center mx-auto mb-4 shadow-glow`}>
+                        <Icon className="w-8 h-8 text-white" />
+                      </div>
+                      <h3 className="text-xl font-bold mb-2 text-foreground">{action.title}</h3>
+                      <p className="text-muted-foreground">{action.description}</p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Welcome Section */}
+      <section className="py-20 relative overflow-hidden bg-gradient-to-r from-rose-900 via-purple-900 to-fuchsia-700">
+        <div className="absolute inset-0 bg-black/20" /> 
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center text-white">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Welcome to Fathers Heart Chapel International</h2>
+            <p className="text-xl mb-8 opacity-90">
+              A place where faith meets community, and lives are transformed by God's love. 
+              Join us as we worship together, grow in faith, and serve our community with excellence.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" variant="secondary" className="px-8 py-6 text-lg">Plan Your Visit</Button>
+              <Button size="lg" variant="outline" className="px-8 py-6 text-lg border-white text-white hover:bg-white hover:text-primary">Watch Online</Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 bg-background flex-1">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">Connect, Grow, and Serve</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Discover the many ways you can be part of our community and grow in your faith journey.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <Card key={index} className="text-center border-0 shadow-card hover:shadow-divine transition-all duration-300 hover:scale-105">
+                <CardContent className="p-6">
+                  <div className="text-4xl mb-4">{feature.icon}</div>
+                  <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+{/* Footer */}
+<footer className="bg-gray-900 text-white py-16 mt-16">
+  <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+    {/* About */}
+    <div>
+      <h3 className="text-xl font-bold mb-4">Fathers Heart Chapel</h3>
+      <p className="text-muted-foreground">
+        Transforming lives through faith, worship, and service. Join our vibrant community and grow in your spiritual journey.
+      </p>
+    </div>
+
+    {/* Quick Links */}
+    <div>
+      <h3 className="text-xl font-bold mb-4">Quick Links</h3>
+      <ul className="space-y-2">
+        {[
+          { name: "Services", link: "/services" },
+          { name: "About Us", link: "/about" },
+          { name: "Partnership", link: "/partnership" },
+          { name: "Giving", link: "/give/offering" },
+          { name: "Contact", link: "/contact" }
+        ].map((item, index) => (
+          <li key={index}>
+            <Link
+              to={item.link}
+              className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500 hover:scale-105 hover:underline transition-transform duration-300"
+            >
+              {item.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* Contact */}
+    <div>
+      <h3 className="text-xl font-bold mb-4">Contact Us</h3>
+      <ul className="space-y-2 text-muted-foreground">
+        <li className="flex items-center gap-2"><MapPin className="w-5 h-5" /> 123 Church Street, Accra, Ghana</li>
+        <li className="flex items-center gap-2"><Phone className="w-5 h-5" /> +233 56 002 5086</li>
+        <li className="flex items-center gap-2"><Mail className="w-5 h-5" /> info@fathersheart.org</li>
+      </ul>
+      <div className="flex gap-4 mt-4">
+        {[
+          { icon: <Facebook className="w-5 h-5 text-white" />, link: "#" },
+          { icon: <Instagram className="w-5 h-5 text-white" />, link: "#" },
+          { icon: <Youtube className="w-5 h-5 text-white" />, link: "#" }
+        ].map((social, idx) => (
+          <a
+            key={idx}
+            href={social.link}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gradient-to-r hover:from-purple-400 hover:to-pink-500 transition-all duration-300"
+          >
+            {social.icon}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div className="mt-12 text-center text-sm text-muted-foreground">
+    &copy; {new Date().getFullYear()} Fathers Heart Chapel International. All rights reserved.
+  </div>
+</footer>
+
+    </div>
+  );
+};
+
+export default Home;
