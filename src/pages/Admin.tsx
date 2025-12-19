@@ -8,11 +8,17 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { Lock, Users, CreditCard, TrendingUp, DollarSign, Calendar } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { Trash2, Edit2, Plus } from "lucide-react";
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const [partnerships, setPartnerships] = useState([]);
+  const [newsItems, setNewsItems] = useState<any[]>([]);
+  const [editing, setEditing] = useState<any | null>(null);
+  const [newsForm, setNewsForm] = useState({ title: "", excerpt: "", content: "", date: "", image: "", link: "" });
+  const [imageUploading, setImageUploading] = useState(false);
   const [stats, setStats] = useState({
     totalPartnerships: 0,
     totalAmount: 0,
@@ -29,8 +35,105 @@ const Admin = () => {
     if (isAuthenticated) {
       fetchPartnerships();
       fetchStats();
+      fetchNews();
     }
   }, [isAuthenticated]);
+
+  const fetchNews = async () => {
+    try {
+      const { data, error } = await (supabase as any)
+        .from("news")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      setNewsItems(data || []);
+    } catch (error: any) {
+      toast({ title: "Error fetching news", description: error.message, variant: "destructive" });
+    }
+  };
+
+  const handleNewsSave = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    try {
+      if (editing) {
+        const { error } = await (supabase as any).from("news").update({
+          title: newsForm.title,
+          excerpt: newsForm.excerpt,
+          content: newsForm.content,
+          date: newsForm.date,
+          image: newsForm.image,
+          link: newsForm.link,
+        }).eq("id", editing.id);
+
+        if (error) throw error;
+        toast({ title: "News updated", description: "The news item was updated." });
+      } else {
+        const { error } = await (supabase as any).from("news").insert([{
+          title: newsForm.title,
+          excerpt: newsForm.excerpt,
+          content: newsForm.content,
+          date: newsForm.date,
+          image: newsForm.image,
+          link: newsForm.link,
+        }]);
+
+        if (error) throw error;
+        toast({ title: "News created", description: "A new news item was created." });
+      }
+
+      setNewsForm({ title: "", excerpt: "", content: "", date: "", image: "", link: "" });
+      setEditing(null);
+      fetchNews();
+    } catch (error: any) {
+      toast({ title: "Error saving news", description: error.message, variant: "destructive" });
+    }
+  };
+
+  const handleNewsEdit = (item: any) => {
+    setEditing(item);
+    setNewsForm({ title: item.title || "", excerpt: item.excerpt || "", content: item.content || "", date: item.date || "", image: item.image || "", link: item.link || "" });
+  };
+
+  const handleNewsDelete = async (id: string) => {
+    if (!confirm("Delete this news item?")) return;
+    try {
+      const { error } = await (supabase as any).from("news").delete().eq("id", id);
+      if (error) throw error;
+      toast({ title: "Deleted", description: "News item deleted." });
+      fetchNews();
+    } catch (error: any) {
+      toast({ title: "Error deleting news", description: error.message, variant: "destructive" });
+    }
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImageUploading(true);
+    try {
+      const ext = file.name.split('.').pop();
+      const fileName = `${Date.now()}.${ext}`;
+      const filePath = `news/${fileName}`;
+
+      const { data: uploadData, error: uploadError } = await (supabase as any).storage
+        .from('news-images')
+        .upload(filePath, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const { data: urlData } = await (supabase as any).storage.from('news-images').getPublicUrl(filePath);
+      const publicUrl = (urlData as any)?.publicUrl || (urlData as any)?.public_url || '';
+
+      setNewsForm(prev => ({ ...prev, image: publicUrl }));
+      toast({ title: 'Image uploaded', description: 'Image uploaded to storage.' });
+    } catch (err: any) {
+      toast({ title: 'Upload failed', description: err.message || String(err), variant: 'destructive' });
+    } finally {
+      setImageUploading(false);
+    }
+  };
 
   const checkAuthState = async () => {
     const { data: { session } } = await supabase.auth.getSession();
@@ -334,6 +437,101 @@ const Admin = () => {
                   ))}
                 </TableBody>
               </Table>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* News Management */}
+        <Card className="border-0 shadow-divine mt-8">
+          <CardHeader>
+            <CardTitle className="flex items-center text-xl">
+              <Users className="w-6 h-6 mr-2" />
+              News Management
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+              <form onSubmit={handleNewsSave} className="space-y-4">
+                <div>
+                  <Label htmlFor="title">Title</Label>
+                  <Input id="title" value={newsForm.title} onChange={(e) => setNewsForm(prev => ({ ...prev, title: e.target.value }))} required />
+                </div>
+                <div>
+                  <Label htmlFor="excerpt">Excerpt</Label>
+                  <Input id="excerpt" value={newsForm.excerpt} onChange={(e) => setNewsForm(prev => ({ ...prev, excerpt: e.target.value }))} required />
+                </div>
+                <div>
+                  <Label htmlFor="content">Content</Label>
+                  <Textarea id="content" value={newsForm.content} onChange={(e: any) => setNewsForm(prev => ({ ...prev, content: e.target.value }))} rows={6} />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="date">Date</Label>
+                    <Input id="date" type="date" value={newsForm.date} onChange={(e) => setNewsForm(prev => ({ ...prev, date: e.target.value }))} />
+                  </div>
+                  <div>
+                    <Label htmlFor="image">Image URL</Label>
+                    <Input id="image" value={newsForm.image} onChange={(e) => setNewsForm(prev => ({ ...prev, image: e.target.value }))} />
+                    <div className="mt-2">
+                      <Label htmlFor="imageFile">Upload Image</Label>
+                      <input id="imageFile" type="file" accept="image/*" onChange={handleImageUpload} className="mt-1" />
+                      {imageUploading && <div className="text-sm text-muted-foreground mt-2">Uploading...</div>}
+                      {newsForm.image && (
+                        <img src={newsForm.image} alt="preview" className="mt-2 max-w-full h-auto object-cover rounded" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <Label htmlFor="link">Link / Slug</Label>
+                  <Input id="link" value={newsForm.link} onChange={(e) => setNewsForm(prev => ({ ...prev, link: e.target.value }))} />
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Button type="submit" className="bg-gradient-royal text-white">
+                    {editing ? (
+                      <><Edit2 className="mr-2" /> Update News</>
+                    ) : (
+                      <><Plus className="mr-2" /> Create News</>
+                    )}
+                  </Button>
+                  {editing && (
+                    <Button variant="outline" onClick={() => { setEditing(null); setNewsForm({ title: "", excerpt: "", content: "", date: "", image: "", link: "" }); }}>
+                      Cancel
+                    </Button>
+                  )}
+                </div>
+              </form>
+
+              <div>
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Title</TableHead>
+                        <TableHead>Date</TableHead>
+                        <TableHead>Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {newsItems.map(item => (
+                        <TableRow key={item.id}>
+                          <TableCell className="font-medium">{item.title}</TableCell>
+                          <TableCell>{item.date}</TableCell>
+                          <TableCell className="space-x-2">
+                            <Button size="sm" onClick={() => handleNewsEdit(item)}>
+                              <Edit2 />
+                            </Button>
+                            <Button size="sm" variant="destructive" onClick={() => handleNewsDelete(item.id)}>
+                              <Trash2 />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>

@@ -8,68 +8,70 @@ import hero2 from "@/assets/hero2.jpeg";
 import hero3 from "@/assets/hero3.jpeg";
 import hero6 from "@/assets/hero6.jpg";
 import vid from "@/assets/vid.mp4";
+import NewsCarousel from "@/components/ui/news-carousel";
+import news from "@/data/news";
 import { Heart, BookOpen, Users, Globe, Mail, Phone, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
 
 const Home = () => {
   const carouselSlides = [
-    { 
-      id: 1, 
-      title: "INTERNATIONAL VISITORS", 
-      subtitle: "Welcome to Fathers Heart Chapel", 
-      description: "We are ready to receive you from wherever you are visiting us from. Experience God's love in our vibrant community.", 
-      image: hero1, 
-      ctaText: "Join Our Service", 
-      ctaLink: "/services", 
-      gradient: "from-blue-950 via-blue-800 to-cyan-600" 
-    },
-    { 
-      id: 2, 
-      title: "EXPERIENCE GOD'S PRESENCE", 
-      subtitle: "Worship & Community", 
-      description: "Join us for powerful worship experiences and life-changing messages that will transform your spiritual journey.", 
-      image: hero2, 
-      ctaText: "Watch Live", 
-      ctaLink: "/live",
-      gradient: "from-blue-950 via-blue-800 to-cyan-600"
-    },
-    { 
-      id: 3, 
-      title: "KINGDOM PARTNERSHIP", 
-      subtitle: "Building Together", 
-      description: "Partner with us in advancing God's kingdom through missions, outreach, and community transformation.", 
-      image: hero3, 
-      ctaText: "Partner With Us", 
-      ctaLink: "/partnership",
-      gradient: "from-blue-950 via-blue-800 to-cyan-600"
-    },
-    { 
-      id: 4, 
-      title: "YEAR OF HIS GRACE", 
-      subtitle: "Team Of The Year", 
-      description: "Praising God for blessedness and following after his promises, trusting his amazing grace.", 
-      image: hero6, 
-      ctaText: "Join The Family", 
-      ctaLink: "/about",
-      gradient: "from-blue-950 via-blue-800 to-cyan-600"
-    },
-    { 
-      id: 5, 
-      title: "THE CHURCH OF GOD", 
-      subtitle: "Our Church nurtures", 
-      description: "Building Kingdom minded men to look like Christ.", 
-      image: vid, 
-      ctaText: "Mentorship", 
-      ctaLink: "/about",
-      gradient: "from-blue-950 via-blue-800 to-cyan-600"
-    }
-  ];
+  { 
+    id: 1, 
+    title: "REACHING OUT TO THE UNREACHED", 
+    subtitle: "Welcome to Martyrs of Christ World Outreach & Father's Heart Chapel Int'l", 
+    description: "We are mandated to fulfill the Great Commission by reaching all people and making Christ known where His name is still unknown (Mark 16:15).", 
+    image: hero1, 
+    ctaText: "Join Our Family", 
+    ctaLink: "/membership", 
+    gradient: "from-blue-950 via-blue-800 to-cyan-600" 
+  },
+  { 
+    id: 2, 
+    title: "RAISING KINGDOM DISCIPLES", 
+    subtitle: "Discipleship & Mentorship", 
+    description: "Raising men and women to be effective witnesses of Christ and agents of positive change wherever they find themselves in the world (Matthew 28:19–20).", 
+    image: hero2, 
+    ctaText: "Join Our Family", 
+    ctaLink: "/membership",
+    gradient: "from-blue-950 via-blue-800 to-cyan-600"
+  },
+  { 
+    id: 3, 
+    title: "KINGDOM PARTNERSHIP", 
+    subtitle: "Building Together", 
+    description: "Raise a foundation for many generations. Support our mission to advance God's kingdom through missions, outreach, and community transformation (Philipians 1:5).", 
+    image: hero3, 
+    ctaText: "Partner With Us", 
+    ctaLink: "/partnership",
+    gradient: "from-blue-950 via-blue-800 to-cyan-600"
+  },
+  { 
+    id: 4, 
+    title: "GROWING STEADFASTLY", 
+    subtitle: "FELLOWSHIP & COMMUNITY", 
+    description: "We are a growing, Christ-centered community devoted to spiritual growth through teaching, fellowship, and prayer (Acts 2:42).", 
+    image: hero6, 
+    ctaText: "Join Our Family", 
+    ctaLink: "/membership",
+    gradient: "from-blue-950 via-blue-800 to-cyan-600"
+  },
+  { 
+    id: 5, 
+    title: "OUR YEAR OF REST", 
+    subtitle: "Theme for 2026", 
+    description: "Together in 2026, let's fulfill God's Word and the Father's heart desire for our lives, standing firm on His promises (Psalm 62:1-2).", 
+    image: vid, 
+    ctaText: "Join Our Family", 
+    ctaLink: "/membership",
+    gradient: "from-blue-950 via-blue-800 to-cyan-600"
+  }
+];
 
   // ✅ Correct Order: FHC → Rev Prince → Offering → Partnership
   const quickActions = [
-    { title: "FHC", description: "Fathers Heart Chapel - our mother church", icon: Globe, gradient: "from-blue-700 to-cyan-500", link: "/fhc" },
-    { title: "REV PRINCE MINISTRIES", description: "Pastor's ministry & sub-ministries", icon: BookOpen, gradient: "from-blue-700 to-cyan-500", link: "/rev-prince-ministries" },
-    { title: "OFFERING", description: "Support our ministry", icon: Heart, gradient: "from-blue-700 to-cyan-500", link: "/give/offering" },
-    { title: "PARTNER NOW", description: "Join our mission", icon: Users, gradient: "from-blue-700 to-cyan-500", link: "/partnership" }
+    { title: "FHCI", description: "Father’s Heart Chapel Int. – Equipping men to fulfill the Father’s desire", icon: Globe, gradient: "from-blue-700 to-cyan-500", link: "/fhc" },
+    { title: "REV PRINCE MINISTRIES", description: "Rev. Prince Bediako Appau – Fulfilling Divine Calling, Living as Christ’s Representative", icon: BookOpen, gradient: "from-blue-700 to-cyan-500", link: "/rev-prince-ministries" },
+    { title: "OFFERING", description: "Give Joyfully, Bless Generously", icon: Heart, gradient: "from-blue-700 to-cyan-500", link: "/give/offering" },
+    { title: "PARTNER NOW", description: "Be a Partner. Fuel the Missions and Transform Lives.", icon: Users, gradient: "from-blue-700 to-cyan-500", link: "/partnership" }
   ];
 
   const features = [
@@ -78,6 +80,8 @@ const Home = () => {
     { title: "Community Outreach", description: "Making a difference in our local and global communities", icon: "🌍" },
     { title: "Biblical Resources", description: "Access sermons, books, and study materials", icon: "📖" }
   ];
+
+  // `news` imported from src/data/news
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -108,6 +112,40 @@ const Home = () => {
         </div>
       </section>
 
+      {/* News Feed Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-3xl font-bold">Latest News</h2>
+            <Link to="/news" className="text-sm bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400 hover:underline">
+              View All News
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Featured article carousel */}
+            <div className="lg:col-span-2">
+              <NewsCarousel slides={news} height={360} />
+            </div>
+
+            {/* Recent list */}
+            <div className="space-y-4">
+              {news.slice(1).map((item) => (
+                <Card key={item.id} className="flex items-start gap-4 border-0 shadow-card">
+                  <img src={item.image} alt={item.title} className="max-w-full h-auto object-cover rounded-l-md w-28" />
+                  <CardContent className="p-4">
+                    <div className="text-xs text-muted-foreground">{item.date}</div>
+                    <h4 className="text-lg font-semibold mb-1">{item.title}</h4>
+                    <p className="text-sm text-muted-foreground mb-2">{item.excerpt}</p>
+                    <Link to={item.link} className="text-sm text-blue-600 hover:underline">Read more →</Link>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Welcome Section */}
       <section className="py-20 relative overflow-hidden bg-gradient-to-r from-blue-950 via-blue-800 to-cyan-600">
         <div className="absolute inset-0 bg-black/20" /> 
@@ -115,14 +153,15 @@ const Home = () => {
           <div className="max-w-4xl mx-auto text-center text-white">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Welcome to Martyrs Of Christ World Outreach</h2>
             <p className="text-xl mb-8 opacity-90">
-              A place where faith meets community, and lives are transformed by God's love. 
-              Join us as we worship together, grow in faith, and serve our community with excellence.
+              A Christian youth non-denominational evangelical movement fully commited to missions and mandated to empower and equip youth and adults to be effective witnesses of Christ and also live as agents of change in the world at large.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary" className="px-8 py-6 text-lg">Plan Your Visit</Button>
-              <Button size="lg" variant="outline" className="px-8 py-6 text-lg border-white text-white hover:bg-white hover:text-blue-800">
+              <Link to="/mocwo">
+  <Button size="lg" variant="secondary" className="px-8 py-6 text-lg">MOCWO</Button>
+</Link>
+              {/* <Button size="lg" variant="outline" className="px-8 py-6 text-lg border-white text-white hover:bg-white hover:text-blue-800">
                 Watch Online
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>
@@ -191,7 +230,7 @@ const Home = () => {
             <h3 className="text-xl font-bold mb-4">Contact Us</h3>
             <ul className="space-y-2 text-muted-foreground">
               <li className="flex items-center gap-2"><MapPin className="w-5 h-5" /> 123 Church Street, Accra, Ghana</li>
-              <li className="flex items-center gap-2"><Phone className="w-5 h-5" /> +233 56 002 5086</li>
+              <li className="flex items-center gap-2"><Phone className="w-5 h-5" /> +233 24 352 7174</li>
               <li className="flex items-center gap-2"><Mail className="w-5 h-5" /> info@fathersheart.org</li>
             </ul>
 

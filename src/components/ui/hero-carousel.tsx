@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface CarouselSlide {
   id: number;
@@ -21,6 +22,7 @@ interface HeroCarouselProps {
 
 const HeroCarousel = ({ slides, autoPlay = true, interval = 5000 }: HeroCarouselProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!autoPlay) return;
@@ -52,7 +54,7 @@ const HeroCarousel = ({ slides, autoPlay = true, interval = 5000 }: HeroCarousel
             {/* Background Image/Video */}
             {typeof slide.image === "string" && slide.image.endsWith(".mp4") ? (
               <video
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover max-w-full"
                 src={slide.image}
                 autoPlay
                 loop
@@ -92,6 +94,7 @@ const HeroCarousel = ({ slides, autoPlay = true, interval = 5000 }: HeroCarousel
                   <div className="animate-slide-up">
                     <Button
                       size="lg"
+                      onClick={() => navigate(slide.ctaLink)}
                       className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-6 text-lg font-semibold shadow-divine transition-all duration-300 hover:scale-105"
                     >
                       {slide.ctaText}

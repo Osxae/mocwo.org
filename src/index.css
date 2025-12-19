@@ -117,3 +117,12 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+/* Make media elements responsive by default */
+@layer components {
+  img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+}

@@ -11,11 +11,32 @@ const Resources = () => {
     { title: "Downloads", description: "Study guides, worksheets, and digital content", icon: Download, gradient: "from-blue-800 to-cyan-600", link: "/resources/downloads" }
   ];
 
-  const featuredSermons = [
-    { title: "The Power of Faith", speaker: "Rev. Prince Appau Bediako", date: "March 15, 2024", duration: "45 min", image: "🎬" },
-    { title: "Walking in Purpose", speaker: "Rev. Prince Appau Bediako", date: "March 8, 2024", duration: "52 min", image: "🎬" },
-    { title: "Kingdom Principles", speaker: "Rev. Prince Appau Bediako", date: "March 1, 2024", duration: "48 min", image: "🎬" }
-  ];
+ const featuredSermons = [
+  { 
+    title: "The Power of Faith", 
+    speaker: "Rev. Prince Appau Bediako", 
+    date: "March 15, 2024", 
+    duration: "45 min", 
+    image: "🎬",
+    videoLink: "https://www.youtube.com/watch?v=CuSjTgJV_lA"
+  },
+  { 
+    title: "Walking in Purpose", 
+    speaker: "Rev. Prince Appau Bediako", 
+    date: "March 8, 2024", 
+    duration: "52 min", 
+    image: "🎬",
+    videoLink: "https://www.youtube.com/watch?v=JtdKbMrPwqQ"
+  },
+  { 
+    title: "Kingdom Principles", 
+    speaker: "Rev. Prince Appau Bediako", 
+    date: "March 1, 2024", 
+    duration: "48 min", 
+    image: "🎬",
+    videoLink: "https://www.youtube.com/watch?v=cJU6wW5Veo8"
+  }
+];
 
   const featuredBooks = [
     { title: "Prophetic Breakthrough", author: "Rev. Prince Appau Bediako", description: "Discover the power of prophetic ministry in your life", price: "$15.99", image: "📚" },
@@ -85,7 +106,12 @@ const Resources = () => {
                       <span>{sermon.date}</span>
                       <span>{sermon.duration}</span>
                     </div>
-                    <Button className="w-full">Watch Now</Button>
+                    <Button 
+  className="w-full"
+  onClick={() => window.open(sermon.videoLink, '_blank')}
+>
+  Watch Now
+</Button>
                   </div>
                 </CardContent>
               </Card>
@@ -156,7 +182,7 @@ const Resources = () => {
             <h3 className="text-xl font-bold mb-4">Contact Us</h3>
             <ul className="space-y-2 text-muted-foreground">
               <li className="flex items-center gap-2"><MapPin className="w-5 h-5" /> 123 Church Street, Accra, Ghana</li>
-              <li className="flex items-center gap-2"><Phone className="w-5 h-5" /> +233 56 002 5086</li>
+              <li className="flex items-center gap-2"><Phone className="w-5 h-5" /> +233 24 352 7174</li>
               <li className="flex items-center gap-2"><Mail className="w-5 h-5" /> info@fathersheart.org</li>
             </ul>
             <div className="flex gap-4 mt-4">

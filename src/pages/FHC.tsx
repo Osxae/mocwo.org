@@ -1,271 +1,254 @@
 import { useState } from "react";
-import { Menu, X, Play, Download, ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Menu, X, Play, ChevronLeft, ChevronRight, MapPin, Phone, Mail, Facebook, Instagram, Youtube } from "lucide-react";
 import hero2 from "@/assets/hero2.jpeg";
 import hero3 from "@/assets/hero3.jpeg";
-import hero4 from "@/assets/hero4.jpeg";
 import hero5 from "@/assets/hero5.jpeg";
-import logo from  "@/assets/logo.jpg";
+import hero4 from "@/assets/hero4.jpeg";
+import logo from "@/assets/logo.jpg";
 import PAPS from "@/assets/PAPS.jpeg";
-// import hero6 from "@/assets/hero6.jpeg";
 import { Link } from "react-router-dom";
-import { Heart, BookOpen, Users, Globe, Mail, Phone, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
+import PO from "@/assets/PO.jpeg";
+import PK from "@/assets/PK.jpeg";
+import SC from "@/assets/SC.jpeg";
 
 export default function Fhc() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const testimonials = [
-    { title: "3 Years with Photosensitivity Healed", image: hero5 },
-    { title: "Grace & Favor Works", image: hero3 },
+  const mediaExperts = [
+    { name: "Pastor Okrah", role: "Media Head", image: PO, bio: "Oversees all media operations." },
+    { name: "Pastor Kwame", role: "Video Producer", image: PK, bio: "Captures moments from services and outreach programs." },
+    { name: "Pastor Clinton", role: "Social Media Manager", image: SC, bio: "Produces live streams and highlight videos." },
   ];
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % testimonials.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  const mediaSamples = [
+    { title: "Sunday Service Highlights", image: hero2, type: "video", link: "/media/sunday-service" },
+    { title: "Watch Night Highlights", image: hero4, type: "video", link: "/media/watch-night" },
+    { title: "Atwea Camps", image: hero5, type: "image", link: "/media/atwea-camps" },
+    { title: "Others", image: hero3, type: "image", link: "/media/others" },
+  ];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 text-white sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center gap-2">
-            <div className="w-12 h-12 bg-amber-600 rounded-full flex items-center justify-center font-bold text-lg">✧</div>
-            <span className="font-bold text-lg hidden sm:inline">FATHERS HEART CHAPEL</span>
-            {/* <img src={logo} alt=""></img> */}
+    <div className="min-h-screen bg-white text-slate-800">
+      <header className="sticky top-0 z-50 backdrop-blur-sm bg-white/60 border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img src={logo} alt="FHC" className="w-12 h-12 rounded-full object-cover shadow max-w-full" />
+            <div>
+              <div className="text-sm font-medium">FATHERS HEART CHAPEL</div>
+              <div className="text-xs text-slate-500">Martyrs Of Christ World Outreach</div>
+            </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold">
-            <a href="/" className="hover:text-amber-400 transition">HOME</a>
-            <a href="/resources" className="hover:text-amber-400 transition">RESOURCES</a>
-            <a href="/events" className="hover:text-amber-400 transition">UPCOMING EVENTS</a>
-            <a href="/give/offering" className="hover:text-amber-400 transition">OFFERING</a>
-            <a href="/give/partner" className="hover:text-amber-400 transition">PARTNERSHIP</a>
-            <a href="/about" className="hover:text-amber-400 transition">ABOUT</a>
-            {/* <a href="/prayer" className="hover:text-amber-400 transition">PRAYER</a> */}
-
+          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+            <a href="/" className="py-2 px-3 rounded hover:bg-slate-100 transition">Home</a>
+            <a href="/about" className="py-2 px-3 rounded hover:bg-slate-100 transition">About</a>
+            <a href="/services" className="py-2 px-3 rounded hover:bg-slate-100 transition">Services</a>
+            <a href="/give/partner" className="py-2 px-4 rounded-full bg-amber-400 text-slate-900 font-semibold hover:shadow-lg transition">Partner</a>
           </nav>
 
-          {/* Mobile Menu Button */}
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden">
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="flex items-center gap-3">
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden p-2">
+              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+            <a href="/give/offering" className="hidden md:inline-block text-sm bg-slate-900 text-white px-4 py-2 rounded hover:opacity-95">Give</a>
+          </div>
         </div>
 
-        {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-slate-800 px-4 py-4 space-y-2">
-            <a href="/" className="block py-2 hover:text-amber-400">HOME</a>
-            <a href="/resources" className="block py-2 hover:text-amber-400">RESOURCES</a>
-            <a href="/events" className="block py-2 hover:text-amber-400">UPCOMING EVENTS</a>
-            <a href="/give/offering" className="block py-2 hover:text-amber-400">OFFERING</a>
-            <a href="/give/partner" className="block py-2 hover:text-amber-400">PARTNERSHIP</a>
-            <a href="/about" className="block py-2 hover:text-amber-400">ABOUT</a>
-            <a href="/prayer" className="block py-2 hover:text-amber-400">PRAYER</a>
-            <Link to="/prayer-ai">Prayer</Link>
+          <div className="md:hidden px-4 pb-4 flex flex-col gap-2">
+            <a href="/" className="py-2 px-3 rounded hover:bg-slate-100">Home</a>
+            <a href="/about" className="py-2 px-3 rounded hover:bg-slate-100">About</a>
+            <a href="/services" className="py-2 px-3 rounded hover:bg-slate-100">Services</a>
+            <a href="/give/partner" className="py-2 px-3 rounded hover:bg-slate-100">Partner</a>
           </div>
         )}
       </header>
 
-      {/* Action Buttons */}
-      <div className="bg-gray-100 px-4 py-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-          <a href="/give/offering" className="bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 rounded-full transition inline-block text-center">
-  OFFERING
-</a>
-
-<a href="/give/seed" className="bg-amber-800 hover:bg-amber-700 text-white font-bold py-3 rounded-full transition inline-block text-center">
-  SEED
-</a>
-
-<a href="/give/tithe" className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 rounded-full transition inline-block text-center">
-  TITHE
-</a>
-
-<a href="/give/partner" className="bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-bold py-3 rounded-full transition inline-block text-center">
-  PARTNER NOW
-</a>
-
-{/* <a href="/register" className="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded text-center inline-block">
-  REGISTER
-</a> */}
-
-{/* <a href="/broadcast/gntv" className="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded text-center inline-block">
-  GNTV
-</a>
-
-<a href="/broadcast/ymtv" className="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded text-center inline-block">
-  YMTV
-</a> */}
-
+      <div className="bg-white/60 py-8">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row gap-4 items-center justify-center">
+          <a href="/give/offering" className="px-5 py-3 rounded-full bg-slate-900 text-white font-semibold shadow hover:scale-[1.01] transition">Offering</a>
+          <a href="/give/seed" className="px-5 py-3 rounded-full bg-amber-400 text-slate-900 font-semibold shadow hover:scale-[1.01] transition">Seed</a>
+          <a href="/give/tithe" className="px-5 py-3 rounded-full bg-teal-500 text-white font-semibold shadow hover:scale-[1.01] transition">Tithe</a>
+          <a href="/give/partner" className="px-5 py-3 rounded-full bg-yellow-400 text-slate-900 font-semibold shadow hover:scale-[1.01] transition">Partner Now</a>
         </div>
       </div>
 
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-amber-900 via-purple-900 to-slate-900 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-purple-500 mix-blend-multiply"></div>
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <p className="text-amber-400 font-semibold mb-2 uppercase tracking-wide">The Global Evangelist</p>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">Rev. Prince Appau Bediako</h1>
-            <p className="text-gray-200 text-lg">Join us for an incredible spiritual journey</p>
+      <section className="relative bg-gradient-to-r from-slate-50 to-white overflow-hidden">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 grid md:grid-cols-2 gap-6 sm:gap-12 items-center">
+          <div className="space-y-6">
+            <p className="text-amber-500 font-semibold uppercase tracking-wide">The Global Evangelist</p>
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-serif font-bold leading-tight">Rev. Prince Appau Bediako</h1>
+            <p className="text-slate-600 max-w-xl">A ministry dedicated to transforming lives through passionate preaching, community outreach, and faithful service. Join us to experience revival and impact.</p>
+            <div className="flex flex-wrap gap-4 mt-4">
+              <a href="/live" className="inline-flex items-center gap-2 px-5 py-3 rounded bg-slate-900 text-white font-semibold shadow">Watch Live</a>
+              <a href="/about" className="inline-flex items-center gap-2 px-5 py-3 rounded border border-slate-200 text-slate-900 font-medium">Learn More</a>
+            </div>
+            <div className="flex items-center gap-6 mt-6">
+              <div className="text-sm">
+                <p className="text-2xl font-bold">40K+</p>
+                <p className="text-xs text-slate-500">Members Worldwide</p>
+              </div>
+              <div className="text-sm">
+                <p className="text-2xl font-bold">120+</p>
+                <p className="text-xs text-slate-500">Outreach Programs</p>
+              </div>
+            </div>
           </div>
-          <div className="relative h-64 md:h-80 rounded-lg overflow-hidden">
-            <img src={hero2} alt="Hero Banner" className="w-full h-full object-cover" />
+          <div className="relative h-72 md:h-96 rounded-2xl overflow-hidden shadow-lg">
+            <img src={hero2} alt="Hero Banner" className="w-full h-full object-cover max-w-full" />
+            <div className="absolute left-6 bottom-6 bg-white/80 rounded-lg p-4 text-slate-800 shadow">
+              <div className="font-semibold">Next Service</div>
+              <div className="text-sm text-slate-600">Sunday • 10:00 AM</div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Prayer Section */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
+      <section className="max-w-7xl mx-auto px-6 py-16">
         <h2 className="text-3xl font-bold text-slate-900 mb-8">Prayer For You</h2>
         <div className="grid md:grid-cols-3 gap-8 items-start">
           <div className="md:col-span-2">
-            <div className="bg-gray-100 rounded-lg p-6">
-              <h3 className="font-bold text-slate-900 mb-2">Prayer For You</h3>
-              <p className="text-gray-600 text-sm mb-4">Rev. Prince Appau Bediako</p>
-              <div className="bg-white rounded p-4 space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">0:00</span>
-                  <div className="flex-1 mx-4 h-1 bg-gray-300 rounded"></div>
-                  <span className="text-xs text-gray-500">11:06</span>
+            <div className="bg-white rounded-xl p-6 shadow">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="font-semibold text-slate-900">Prayer For You</h3>
+                  <p className="text-sm text-slate-500">Rev. Prince Appau Bediako • 11:06</p>
                 </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <button className="text-gray-600 hover:text-slate-900"><ChevronLeft size={20} /></button>
-                    <button className="bg-slate-900 text-white p-2 rounded hover:bg-slate-800"><Play size={20} /></button>
-                    <button className="text-gray-600 hover:text-slate-900"><ChevronRight size={20} /></button>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button className="text-gray-600 hover:text-slate-900">🔊</button>
-                    <button className="text-gray-600 hover:text-slate-900">☰</button>
-                  </div>
+                <div className="flex items-center gap-3">
+                  <button className="p-2 rounded bg-slate-900 text-white"><Play size={16} /></button>
+                  <button className="p-2 rounded border border-slate-200">Download</button>
                 </div>
-                 {/* <a href="/give/offering" className="bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 rounded-full transition inline-block text-center">
-  OFFERING
-</a> */}
               </div>
+
+              <div className="w-full h-3 bg-slate-100 rounded overflow-hidden mb-4">
+                <div className="h-full bg-amber-400 w-1/3"></div>
+              </div>
+
+              <p className="text-slate-600">A short devotional prayer to uplift and encourage. Listen to connect with God and receive His peace.</p>
             </div>
           </div>
           <div className="space-y-4">
-            <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-slate-900 flex items-start gap-3">
-              <button className="bg-slate-900 text-white p-2 rounded flex-shrink-0"><Play size={16} /></button>
+            <div className="bg-white p-4 rounded-lg shadow flex items-start gap-3">
+              <div className="bg-amber-100 p-2 rounded"><Play size={16} /></div>
               <div>
-                <p className="font-bold text-slate-900">Prayer For You</p>
-                <p className="text-xs text-gray-600">Rev. Prince Appau Bediako</p>
-                <p className="text-xs text-gray-500 mt-1">11:06</p>
+                <p className="font-semibold">Prayer For You</p>
+                <p className="text-xs text-slate-500">Rev. Prince Appau Bediako • 11:06</p>
               </div>
             </div>
-            <div className="bg-gray-50 p-4 rounded-lg flex items-start gap-3">
-              <img src={hero3} alt="Baro" className="w-12 h-12 rounded" />
+            <div className="bg-white p-4 rounded-lg shadow flex items-start gap-3">
+              <img src={hero3} alt="Baro" className="w-12 h-12 rounded max-w-full" />
               <div>
-                <p className="font-bold text-slate-900">Baro</p>
-                <p className="text-xs text-gray-600">Rev.Prince Appau Bediako</p>
-                <p className="text-xs text-gray-500 mt-1">5:23</p>
+                <p className="font-semibold">Baro</p>
+                <p className="text-xs text-slate-500">Rev. Prince Appau Bediako • 5:23</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="bg-gray-50 px-4 py-16">
+      <section className="bg-white px-6 py-16">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-center">
           <div>
             <h2 className="text-3xl font-bold text-slate-900 mb-4">Rev. Prince & Prophetess Beatrice Appau Bediako</h2>
-            <p className="text-gray-600 mb-4 font-semibold">An Inspiration To Millions Around The World</p>
-            <p className="text-gray-700 leading-relaxed">
-              Widely known around the world as the strong fathers in schools outreach and campus evangelistic movement...
-            </p>
+            <p className="text-slate-600 mb-4 font-medium">An Inspiration To Millions Around The World</p>
+            <p className="text-slate-700 leading-relaxed">Widely known for school outreach and campus evangelism. Their ministry has impacted thousands with practical discipleship and compassion-driven programs.</p>
+            <a href="/about" className="mt-6 inline-block px-5 py-3 rounded border border-slate-200">Read Their Story</a>
           </div>
-          <div className="relative h-64 md:h-96 rounded-2xl overflow-hidden">
-            <img src={PAPS} alt="Uebert & BeBe Angel" className="w-full h-full object-cover" />
+          <div className="relative h-64 md:h-96 rounded-2xl overflow-hidden shadow">
+            <img src={PAPS} alt="Uebert & BeBe Angel" className="w-full h-full object-cover max-w-full" />
           </div>
         </div>
       </section>
 
-      {/* Partnership Section */}
-      <section className="bg-slate-900 text-white px-4 py-16">
+      <section className="bg-slate-900 text-white px-6 py-16">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-center">
-          <div className="relative h-64 md:h-80 rounded-lg overflow-hidden">
-            <img src={hero5} alt="Partnership" className="w-full h-full object-cover" />
+          <div className="relative h-64 md:h-80 rounded-lg overflow-hidden shadow-lg">
+            <img src={hero5} alt="Partnership" className="w-full h-full object-cover max-w-full" />
           </div>
           <div>
-            <h2 className="text-3xl font-bold mb-6">Partnership</h2>
-            <p className="text-gray-300 mb-6 leading-relaxed">
-              Partnership with the FHC Global Network is about being part of something BIGGER than yourself...
-            </p>
-            <h3 className="text-2xl font-bold text-amber-400 mb-6">Become a FHC World Partner!</h3>
-            <a href="/give/partner" className="bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-bold py-3 rounded-full transition inline-block text-center">
-  LEARN MORE
-</a>
+            <h2 className="text-3xl font-bold mb-4">Partnership</h2>
+            <p className="text-slate-200 mb-4 leading-relaxed">Partnership with the FHC Global Network is about being part of something greater — supporting outreach, discipleship, and global ministry.</p>
+            <a href="/give/partner" className="inline-block px-6 py-3 rounded bg-amber-400 text-slate-900 font-semibold shadow">Become a Partner</a>
           </div>
         </div>
       </section>
 
-      {/* Broadcast Section */}
-      <section className="bg-gray-50 px-4 py-16">
+      <section className="bg-white px-6 py-16">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-center">
           <div>
             <h2 className="text-2xl font-bold text-slate-900 mb-2">Broadcast</h2>
-            <h3 className="text-2xl font-bold text-slate-900 mb-6">Watch Rev. Prince's Teachings Online 24/7</h3>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href="/broadcast/gntv" className="bg-slate-900 hover:bg-slate-800 text-white font-bold"/>
-              <a href="/broadcast/ymtv" className="bg-slate-900 hover:bg-slate-800 text-white font-bold"/>
+            <h3 className="text-lg text-slate-600 mb-6">Watch Rev. Prince's teachings online 24/7</h3>
+            <div className="flex gap-4">
+              <a href="https://www.youtube.com/@revprincebediakoappau/videos" className="px-4 py-2 rounded bg-slate-900 text-white">YOUTUBE</a>
+              <a href="https://www.tiktok.com/@revprinceappaubediako" className="px-4 py-2 rounded border border-slate-200">TIKTOK</a>
             </div>
           </div>
-          <div className="relative h-64 md:h-80 rounded-lg overflow-hidden">
-            <img src={hero3} alt="Broadcast" className="w-full h-full object-cover" />
+          <div className="relative h-64 md:h-80 rounded-lg overflow-hidden shadow">
+            <img src={hero3} alt="Broadcast" className="w-full h-full object-cover max-w-full" />
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-slate-900 mb-8">Testimonies</h2>
-        <div className="relative">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {testimonials.map((t, idx) => (
-              <div key={idx} className={`relative h-64 rounded-lg overflow-hidden transition-opacity duration-300 ${idx === currentSlide ? "opacity-100" : "opacity-0 absolute inset-0"}`}>
-                <img src={t.image} alt={t.title} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent flex items-end p-6">
-                  <h3 className="text-white font-bold text-lg md:text-2xl">{t.title}</h3>
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <h2 className="text-3xl font-bold text-slate-900 mb-2">Media & Experts</h2>
+        <p className="text-slate-600 mb-6">Explore images and videos from our services and programs — and meet the media team behind the coverage.</p>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="md:col-span-2 grid sm:grid-cols-2 gap-4">
+            {mediaSamples.map((m, i) => (
+              <Link key={i} to={m.link} aria-label={`Open ${m.title}`} className="relative h-48 md:h-64 rounded-xl overflow-hidden shadow-lg group block">
+                <img src={m.image} alt={m.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform max-w-full" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent flex items-end p-4">
+                  <div>
+                    <h3 className="text-white font-semibold">{m.title}</h3>
+                    <div className="text-xs text-white/80">{m.type === "video" ? "Video" : "Image"}</div>
+                  </div>
+                </div>
+                {m.type === "video" && (
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="bg-white/90 p-3 rounded-full shadow-lg">
+                      <Play className="text-slate-900" />
+                    </div>
+                  </div>
+                )}
+              </Link>
+            ))}
+          </div>
+
+          <aside className="space-y-4">
+            {mediaExperts.map((e, idx) => (
+              <div key={idx} className="bg-white p-4 rounded-lg shadow flex items-start gap-4">
+                <img src={e.image} alt={e.name} className="w-16 h-16 rounded object-cover shadow-sm max-w-full" />
+                <div>
+                  <div className="font-semibold text-slate-900">{e.name}</div>
+                  <div className="text-xs text-slate-500">{e.role}</div>
+                  <p className="text-sm text-slate-600 mt-2">{e.bio}</p>
                 </div>
               </div>
             ))}
-          </div>
-          <div className="flex justify-center gap-4 mt-8">
-            <button onClick={prevSlide} className="bg-slate-900 hover:bg-slate-800 text-white p-3 rounded-full transition"><ChevronLeft size={24} /></button>
-            <button onClick={nextSlide} className="bg-slate-900 hover:bg-slate-800 text-white p-3 rounded-full transition"><ChevronRight size={24} /></button>
-          </div>
+          </aside>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="bg-slate-900 text-white px-4 py-16">
+      <section className="bg-slate-900 text-white px-6 py-16">
         <div className="max-w-md mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-6">Get In Touch</h2>
-          <input type="email" placeholder="Email: support@fhcmail.com" className="w-full px-4 py-3 rounded mb-4 text-slate-900" />
-          <a href="/register" className="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold">REGISTER</a>
+          <h2 className="text-2xl font-bold mb-4">Get In Touch</h2>
+          <p className="text-slate-300 mb-6">Subscribe for updates, events, and weekly devotionals.</p>
+          <div className="flex gap-2">
+            <input type="email" placeholder="you@example.com" className="w-full px-4 py-3 rounded text-slate-900" />
+            <button className="px-4 py-3 bg-amber-400 text-slate-900 rounded font-semibold">Subscribe</button>
+          </div>
+          <a href="/register" className="mt-6 inline-block px-6 py-3 rounded bg-slate-800 text-white">Register</a>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16 mt-16">
-        <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-
-          {/* About */}
+      <footer className="bg-slate-900 text-white py-16 mt-16">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-xl font-bold mb-4">Martyrs Of Christ World Outreach</h3>
-            <p className="text-muted-foreground">
-              Transforming lives through faith, worship, and service. Join our vibrant community and grow in your spiritual journey.
-            </p>
+            <p className="text-slate-300">Transforming lives through faith, worship, and service. Join our vibrant community and grow in your spiritual journey.</p>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h3 className="text-xl font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2">
@@ -277,48 +260,29 @@ export default function Fhc() {
                 { name: "Contact", link: "/contact" }
               ].map((item, index) => (
                 <li key={index}>
-                  <Link
-                    to={item.link}
-                    className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400 hover:scale-105 hover:underline transition-transform duration-300"
-                  >
-                    {item.name}
-                  </Link>
+                  <Link to={item.link} className="text-slate-300 hover:text-white">{item.name}</Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
             <h3 className="text-xl font-bold mb-4">Contact Us</h3>
-            <ul className="space-y-2 text-muted-foreground">
+            <ul className="space-y-2 text-slate-300">
               <li className="flex items-center gap-2"><MapPin className="w-5 h-5" /> 123 Church Street, Accra, Ghana</li>
-              <li className="flex items-center gap-2"><Phone className="w-5 h-5" /> +233 56 002 5086</li>
+              <li className="flex items-center gap-2"><Phone className="w-5 h-5" /> +233 24 352 7174</li>
               <li className="flex items-center gap-2"><Mail className="w-5 h-5" /> info@fathersheart.org</li>
             </ul>
 
-            <div className="flex gap-4 mt-4">
-              {[ 
-                { icon: <Facebook className="w-5 h-5 text-white" />, link: "#" },
-                { icon: <Instagram className="w-5 h-5 text-white" />, link: "#" },
-                { icon: <Youtube className="w-5 h-5 text-white" />, link: "#" }
-              ].map((social, idx) => (
-                <a
-                  key={idx}
-                  href={social.link}
-                  className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400 transition-all duration-300"
-                >
-                  {social.icon}
-                </a>
-              ))}
+            <div className="flex gap-3 mt-4">
+              <a href="#" className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-blue-700 transition"><Facebook className="w-4 h-4" /></a>
+              <a href="#" className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-pink-600 transition"><Instagram className="w-4 h-4" /></a>
+              <a href="#" className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-red-600 transition"><Youtube className="w-4 h-4" /></a>
             </div>
           </div>
-
         </div>
 
-        <div className="mt-12 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} Martyrs Of Christ World Outreach. All rights reserved.
-        </div>
+        <div className="mt-12 text-center text-sm text-slate-400">&copy; {new Date().getFullYear()} Martyrs Of Christ World Outreach. All rights reserved.</div>
       </footer>
     </div>
   );
